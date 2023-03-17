@@ -15,16 +15,16 @@ namespace Cadastro.Manutencao
         {
             Dao dao = new Dao();
             RepCadastro repositorioCad = new RepCadastro(dao);
-
             try
             {
                 dao.AbrirConexao();
                 repositorioCad.CadatrarUsuario(user);
                 dao.FecharConexao();
-            }catch(Exception)
+            }
+            catch (Exception)
             {
                 throw;
             }
-            }
+        }
     }
 }

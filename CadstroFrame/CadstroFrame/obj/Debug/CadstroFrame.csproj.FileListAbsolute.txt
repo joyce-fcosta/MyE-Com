@@ -1,0 +1,6 @@
+C:\Users\joyce\Documents\PORTIFÓLIO\ecommerce\CadstroFrame\CadstroFrame\bin\Debug\CadstroFrame.dll
+C:\Users\joyce\Documents\PORTIFÓLIO\ecommerce\CadstroFrame\CadstroFrame\bin\Debug\CadstroFrame.pdb
+C:\Users\joyce\Documents\PORTIFÓLIO\ecommerce\CadstroFrame\CadstroFrame\obj\Debug\CadstroFrame.csproj.AssemblyReference.cache
+C:\Users\joyce\Documents\PORTIFÓLIO\ecommerce\CadstroFrame\CadstroFrame\obj\Debug\CadstroFrame.csproj.CoreCompileInputs.cache
+C:\Users\joyce\Documents\PORTIFÓLIO\ecommerce\CadstroFrame\CadstroFrame\obj\Debug\CadstroFrame.dll
+C:\Users\joyce\Documents\PORTIFÓLIO\ecommerce\CadstroFrame\CadstroFrame\obj\Debug\CadstroFrame.pdb
