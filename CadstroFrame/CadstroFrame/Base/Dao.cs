@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.SqlClient;
+using System.Data;
 using CadstroFrame.Classes;
 using System.Runtime.ConstrainedExecution;
 using System.Security.Cryptography;
+using MySql.Data.MySqlClient;
 
 
 namespace CadstroFrame.Base
 {
     public class Dao
     {
-        internal SqlConnection Con { get; set; } = new SqlConnection(@"Data Source = JOYCE\\SQLECOMMERCE; Initial Catalog = bancoecommerce; Integrated Security = True");
+        //Server=myServerAddress;Database=myDataBase;Uid=myUsername;Pwd=myPassword;
+        //@"Data Source = JOYCE\\SQLECOMMERCE; Initial Catalog = bancoecommerce; Integrated Security = True"
+        internal MySqlConnection Con { get; set; } = new MySqlConnection(@"Server=3.82.141.205; Port=3306; Database=ECOMMERCE; Uid=admjoyce; Pwd=admin;");
 
         internal void AbrirConexao()
         {
@@ -48,16 +51,16 @@ namespace CadstroFrame.Base
         //Cadastro do usuário
         internal void InsertUser(User user)
         {
-            SqlCommand command;
-            SqlDataAdapter adapter = new SqlDataAdapter();
+            MySqlCommand command;
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
             string sql;
 
             try
             {
                 sql = "INSERT INTO usuario(nome,telefone,senha,endereco_id) " +
-                      "VALUES ('" + user.Name + "', '" + user.Telefone + "', '" + user.Senha + "', '" + user.MeuEndereco.Id + "')";
-                command = new SqlCommand(sql, Con);
-                adapter.InsertCommand = new SqlCommand(sql, Con);
+                      "VALUES ('" + user.Name + "', '" + user.Telefone + "', '" + user.Senha + "', " + user.MeuEndereco.Id + ");";
+                command = new MySqlCommand(sql, Con);
+                adapter.InsertCommand = new MySqlCommand(sql, Con);
                 adapter.InsertCommand.ExecuteNonQuery();
                 command.Dispose();
             }
@@ -68,9 +71,9 @@ namespace CadstroFrame.Base
         }
 
         //Usar para quando o usuário for logar e mostrar informações no perfil
-        internal SqlDataReader PegarUser(int idUser)
+        internal MySqlDataReader PegarUser(int idUser)
         {
-            SqlCommand command = null;
+            MySqlCommand command = null;
             string sql;
             try
             {
@@ -78,7 +81,7 @@ namespace CadstroFrame.Base
                       "FROM endereco " +
                       "INNER JOIN usuario ON endereco.end_id = usuario.endereco" +
                       "WHERE id = " + idUser;
-                command = new SqlCommand(sql, Con);
+                command = new MySqlCommand(sql, Con);
                 return command.ExecuteReader();
             }
             catch (Exception)
@@ -93,14 +96,14 @@ namespace CadstroFrame.Base
         //Deletar usuário 
         internal void DeletarUser(int idUser)
         {
-            SqlCommand command = null;
-            SqlDataAdapter adapter = new SqlDataAdapter();
+            MySqlCommand command = null;
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
             string sql = "";
             try
             {
                 sql = $"DELETE FROM usuario WHERE id={idUser}";
-                command = new SqlCommand(sql, Con);
-                adapter.DeleteCommand = new SqlCommand(sql, Con);
+                command = new MySqlCommand(sql, Con);
+                adapter.DeleteCommand = new MySqlCommand(sql, Con);
                 adapter.DeleteCommand.ExecuteNonQuery();
             }
             catch (Exception)
@@ -116,16 +119,16 @@ namespace CadstroFrame.Base
         //Atualizar informações do usuário
         public void AtualizarUser(int idUser, User user)
         {
-            SqlCommand command = null;
-            SqlDataAdapter adapter = new SqlDataAdapter();
+            MySqlCommand command = null;
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
             string sql = "";
             sql = "UPDATE usuario SET " +
                 "nome = '" + user.Name + "', " + "telefone='" + user.Telefone + "', " + "senha='" + user.Senha + "'" +
                 "WHERE id ='" + user.Id + "'";
-            command = new SqlCommand(sql, Con);
+            command = new MySqlCommand(sql, Con);
             try
             {
-                adapter.UpdateCommand = new SqlCommand(sql, Con);
+                adapter.UpdateCommand = new MySqlCommand(sql, Con);
                 adapter.UpdateCommand.ExecuteNonQuery();
 
             }
@@ -142,18 +145,18 @@ namespace CadstroFrame.Base
 
         internal void AtualizaEndereco(User user)
         {
-            SqlCommand command = null;
-            SqlDataAdapter adapter = new SqlDataAdapter();
+            MySqlCommand command = null;
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
             string sql = "";
 
             sql = "UPDATE endereco SET rua='" + user.MeuEndereco.Rua + "', " + "numero='" + user.MeuEndereco.Numero + "', "
                 + "complemento='" + user.MeuEndereco.Complemento + "', " + "cidade='" + user.MeuEndereco.Cidade + "', "
                 + "estado='" + user.MeuEndereco.Estado + "', " + "cep='" + user.MeuEndereco.Cep
                 + "WHERE end_id='" + user.IdEndereco + "'";
-            command = new SqlCommand(sql, Con);
+            command = new MySqlCommand(sql, Con);
             try
             {
-                adapter.UpdateCommand = new SqlCommand();
+                adapter.UpdateCommand = new MySqlCommand();
                 adapter.UpdateCommand.ExecuteNonQuery();
 
             }

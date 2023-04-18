@@ -19,7 +19,7 @@ namespace CadastroApi.Controllers
         {
             try
             {
-                
+
                 Cadastro cadastrar = new Cadastro();
                 cadastrar.InserirUser(user);
                 return Request.CreateResponse("Usuário inserido com sucesso.");

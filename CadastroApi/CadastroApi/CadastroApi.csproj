@@ -45,8 +45,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CadstroFrame, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="CadstroFrame">
       <HintPath>..\..\CadstroFrame\CadstroFrame\bin\Debug\CadstroFrame.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
