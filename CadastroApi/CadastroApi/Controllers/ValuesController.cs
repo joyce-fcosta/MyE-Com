@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using CadstroFrame.Manutencao;
 using CadstroFrame.Classes;
+using System.Threading.Tasks;
 
 namespace CadastroApi.Controllers
 {
@@ -26,6 +27,24 @@ namespace CadastroApi.Controllers
             }
             catch (Exception)
             {
+                throw;
+            }
+        }
+
+        [AcceptVerbs("GET"), Route("api/Cadastro/Endereco/{cep}")]
+        [HttpGet]
+        public async Task<EnderecoApiBrasil> ConsulpaCepApiBrasil(string cep)
+        {
+            try
+            {
+                //EnderecoApiBrasil enderecoApiBrasil = new EnderecoApiBrasil();
+                Cadastro cadastro = new Cadastro();
+                var enderecoApiBrasil = await cadastro.ConsultaPorCep(cep);
+                return enderecoApiBrasil;
+            }
+            catch (Exception)
+            {
+
                 throw;
             }
         }

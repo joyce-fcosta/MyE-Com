@@ -28,17 +28,17 @@ namespace CadstroFrame.Repositorio
                     Senha = Convert.ToString(dr["senha"]),
                     Telefone = Convert.ToString(dr["telefone"]),
 
-                    MeuEndereco = new Endereco()
-                    {
-                        Id = int.Parse(dr["end_id"].ToString()),
-                        Rua = Convert.ToString(dr["rua"]),
-                        Numero = Convert.ToString(dr["numero"]),
-                        Complemento = Convert.ToString(dr["complemento"]),
-                        Bairro = Convert.ToString(dr["bairro"]),
-                        Cidade = Convert.ToString(dr["cidade"]),
-                        Estado = Convert.ToString(dr["estado"]),
-                        Cep = Convert.ToString(dr["cep"]),
-                    }
+                    /*                    MeuEndereco = new Endereco()
+                                        {
+                                            Id = int.Parse(dr["end_id"].ToString()),
+                                            Rua = Convert.ToString(dr["rua"]),
+                                            Numero = Convert.ToString(dr["numero"]),
+                                            Complemento = Convert.ToString(dr["complemento"]),
+                                            Bairro = Convert.ToString(dr["bairro"]),
+                                            Cidade = Convert.ToString(dr["cidade"]),
+                                            Estado = Convert.ToString(dr["estado"]),
+                                            Cep = Convert.ToString(dr["cep"]),
+                                        }*/
 
                 };
             }
@@ -90,6 +90,21 @@ namespace CadstroFrame.Repositorio
             {
                 throw;
             }
+        }
+
+        public void InserindoEndereco(Endereco endereco)
+        {
+            try
+            {
+                dao.AbrirConexao();
+                dao.InserirEndereco(endereco);
+                dao.FecharConexao();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
 
 

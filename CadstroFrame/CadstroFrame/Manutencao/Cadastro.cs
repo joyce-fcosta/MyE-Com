@@ -2,7 +2,9 @@
 using CadstroFrame.Classes;
 using CadstroFrame.Repositorio;
 using System;
-
+using System.Net.Http;
+using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace CadstroFrame.Manutencao
 {
@@ -22,6 +24,22 @@ namespace CadstroFrame.Manutencao
             {
                 throw;
             }
+        }
+
+        public async Task<EnderecoApiBrasil> ConsultaPorCep(string cep)
+        {
+
+            HttpClient httpClient = new HttpClient();
+            var response = await httpClient.GetAsync($"https://brasilapi.com.br/api/cep/v1/{cep}"); 
+            var jsonString = await response.Content.ReadAsStringAsync(); 
+            EnderecoApiBrasil jsonObject = JsonConvert.DeserializeObject<EnderecoApiBrasil>(jsonString); 
+
+            return jsonObject;
+        }
+
+        public void EnderecoInserido(EnderecoApiBrasil endApi, string numero)
+        {
+
         }
     }
 }

@@ -14,8 +14,8 @@ namespace CadstroFrame.Base
 {
     public class Dao
     {
-        //Server=myServerAddress;Database=myDataBase;Uid=myUsername;Pwd=myPassword;
-        //@"Data Source = JOYCE\\SQLECOMMERCE; Initial Catalog = bancoecommerce; Integrated Security = True"
+
+        //@"Data Source = JOYCE\\SQLECOMMERCE; Initial Catalog = bancoecommerce; Integrated Security = True" (SQL SERVER)
         internal MySqlConnection Con { get; set; } = new MySqlConnection(@"Server=3.82.141.205; Port=3306; Database=ECOMMERCE; Uid=admjoyce; Pwd=admin;");
 
         internal void AbrirConexao()
@@ -143,22 +143,19 @@ namespace CadstroFrame.Base
 
         }
 
-        internal void AtualizaEndereco(User user)
+        public void InserirEndereco(Endereco endereco)
         {
             MySqlCommand command = null;
-            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            MySqlDataAdapter adapter = null;
             string sql = "";
-
-            sql = "UPDATE endereco SET rua='" + user.MeuEndereco.Rua + "', " + "numero='" + user.MeuEndereco.Numero + "', "
-                + "complemento='" + user.MeuEndereco.Complemento + "', " + "cidade='" + user.MeuEndereco.Cidade + "', "
-                + "estado='" + user.MeuEndereco.Estado + "', " + "cep='" + user.MeuEndereco.Cep
-                + "WHERE end_id='" + user.IdEndereco + "'";
+            sql = "INSERT INTO endereco(rua, numero, complemento, cidade, estado, cep) " +
+                "VALUES('" + endereco.enderecoApiBrasil.street + "', '" + endereco.Numero + "', '" + endereco.Complemento + "', '" +
+                endereco.enderecoApiBrasil.neighborhood + "', '" + endereco.enderecoApiBrasil.state + "', '" + endereco.enderecoApiBrasil.cep + "');";
             command = new MySqlCommand(sql, Con);
             try
             {
-                adapter.UpdateCommand = new MySqlCommand();
-                adapter.UpdateCommand.ExecuteNonQuery();
-
+                adapter.InsertCommand = new MySqlCommand(sql, Con);
+                adapter.InsertCommand.ExecuteNonQuery();
             }
             catch (Exception)
             {
@@ -172,7 +169,37 @@ namespace CadstroFrame.Base
 
         }
 
+        /*  internal void AtualizaEndereco(User user)
+          {
+              MySqlCommand command = null;
+              MySqlDataAdapter adapter = new MySqlDataAdapter();
+              string sql = "";
 
+              sql = "UPDATE endereco SET rua='" + user.MeuEndereco.Rua + "', " + "numero='" + user.MeuEndereco.Numero + "', "
+                  + "complemento='" + user.MeuEndereco.Complemento + "', " + "cidade='" + user.MeuEndereco.Cidade + "', "
+                  + "estado='" + user.MeuEndereco.Estado + "', " + "cep='" + user.MeuEndereco.Cep
+                  + "WHERE end_id='" + user.IdEndereco + "'";
+              command = new MySqlCommand(sql, Con);
+              try
+              {
+                  adapter.UpdateCommand = new MySqlCommand();
+                  adapter.UpdateCommand.ExecuteNonQuery();
 
+              }
+              catch (Exception)
+              {
+                  throw;
+              }
+              finally
+              {
+                  command.Dispose();
+              }
+          }
+  */
     }
 }
+
+
+
+
+
